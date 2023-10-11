@@ -3,7 +3,9 @@ package com.tanvipanchal.customerservice.controller;
 import com.tanvipanchal.customerservice.exception.CustomerNotFoundException;
 import com.tanvipanchal.customerservice.model.Customer;
 import com.tanvipanchal.customerservice.repository.CustomerRepository;
+import com.tanvipanchal.customerservice.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +16,11 @@ public class CustomerController {
 
     private final CustomerRepository repository;
 
-    public CustomerController(CustomerRepository repository) {
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerRepository repository, CustomerService customerService) {
         this.repository = repository;
+        this.customerService = customerService;
     }
 
     @PostMapping("/v1/customers")
@@ -24,9 +29,16 @@ public class CustomerController {
     }
 
     @GetMapping("/v1/customers")
-    public List<Customer> getAllCustomers(){
-        return (List<Customer>) repository.findAll();
+    public List<Customer> getCustomerBySubscriptionTier(@RequestParam(required = false) String subscriptionTier) {
+
+        return customerService.getCustomerBySubscriptionTier(subscriptionTier, (List<Customer>) repository.findAll());
+
     }
+
+//    @GetMapping("/v1/customers")
+//    public List<Customer> getAllCustomers(){
+//        return (List<Customer>) repository.findAll();
+//    }
 
     @GetMapping("/v1/customers/{id}")
     public Customer getCustomerById(@PathVariable Long id){
@@ -62,4 +74,6 @@ public class CustomerController {
     public void deleteCustomerById(@PathVariable Long id){
         repository.deleteById(id);
     }
+
+
 }

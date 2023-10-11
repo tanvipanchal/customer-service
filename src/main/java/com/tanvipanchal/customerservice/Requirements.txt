@@ -34,3 +34,17 @@ Method: DELETE
 URL: /customers/{customerId}
 Delete a customer by their ID.
 For this microservice, you should use Java and Spring Boot. Additionally, you'll use the H2 in-memory database for storing customer data. Your microservice should be testable with unit and integration tests.
+
+Data Manipulation Challenge: Implement a feature that allows you to categorize customers into different subscription tiers based on their total purchase amount. You'll use Java data structures like List, Map, and Set for this challenge.
+
+Requirements:
+
+Define three subscription tiers: Gold, Silver, and Bronze.
+Categorize customers based on their total purchase amount:
+Gold: Total purchase amount greater than $1,000.
+Silver: Total purchase amount between $500 and $1,000.
+Bronze: Total purchase amount less than $500.
+Store customers in different data structures based on their subscription tier:
+Use a List to store Gold tier customers.
+Use a Set to store Silver tier customers (ensuring no duplicates).
+Use a Map to store Bronze tier customers, where the key is the customer ID and the value is the customer object.

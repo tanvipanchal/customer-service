@@ -13,16 +13,19 @@ public class Customer {
     private int age;
     private String email;
 
+    private double purchaseAmount;
+
     public Customer() {
     }
 
-    public Customer(Long id, String firstName, String lastName, String country, int age, String email) {
+    public Customer(Long id, String firstName, String lastName, String country, int age, String email, double purchaseAmount) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
         this.age = age;
         this.email = email;
+        this.purchaseAmount = purchaseAmount;
     }
 
     public void setId(Long id) {
@@ -73,6 +76,14 @@ public class Customer {
         this.email = email;
     }
 
+    public double getPurchaseAmount() {
+        return purchaseAmount;
+    }
+
+    public void setPurchaseAmount(double purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -82,6 +93,7 @@ public class Customer {
                 ", country='" + country + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
+                ", purchaseAmount=" + purchaseAmount +
                 '}';
     }
 }
