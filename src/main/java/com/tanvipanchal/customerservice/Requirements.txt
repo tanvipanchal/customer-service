@@ -1,0 +1,36 @@
+Scenario: You need to build a microservice for managing customer records. The microservice should have the following endpoints:
+
+Create a Customer:
+
+Method: POST
+URL: /customers
+Request body: JSON representing customer details (e.g., name, email, phone).
+
+
+Get a Customer:
+
+Method: GET
+URL: /customers/{customerId}
+Retrieve customer details by their ID.
+
+
+List All Customers:
+
+Method: GET
+URL: /customers
+Retrieve a list of all customers.
+
+
+Update Customer Details:
+
+Method: PUT
+URL: /customers/{customerId}
+Request body: JSON with updated customer details.
+
+
+Delete a Customer:
+
+Method: DELETE
+URL: /customers/{customerId}
+Delete a customer by their ID.
+For this microservice, you should use Java and Spring Boot. Additionally, you'll use the H2 in-memory database for storing customer data. Your microservice should be testable with unit and integration tests.
