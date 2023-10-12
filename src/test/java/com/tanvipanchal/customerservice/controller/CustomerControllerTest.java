@@ -98,20 +98,20 @@ class CustomerControllerTest {
 
     @Test
     void getCustomerById_positive() {
-        //Assert
+        //Arrange
         Mockito.when(customerRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(customers.get(0)));
 
         //Act
         Customer customer = customerController.getCustomerById(1L);
 
-        //Asset
+        //Assert
         assertNotNull(customer);
         assertEquals("Tina", customer.getFirstName());
     }
 
     @Test
     void getCustomerById_negative() {
-        //Assert
+        //Arrange
         Mockito.when(customerRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
         //Act
@@ -126,35 +126,35 @@ class CustomerControllerTest {
 
     @Test
     void updateCustomer_positive() {
-        //Assert
+        //Arrange
         Mockito.when(customerRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(customers.get(0)));
         Mockito.when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(1));
 
         //Act
         Customer customer = customerController.updateCustomer(customers.get(2),1L);
 
-        //Asset
+        //Assert
         assertNotNull(customer);
         assertEquals("Mina", customer.getFirstName());
     }
 
     @Test
     void updateCustomer_negative() {
-        //Assert
+        //Arrange
         Mockito.when(customerRepository.findById(any(Long.class))).thenReturn(Optional.empty());
         Mockito.when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(1));
 
         //Act
         Customer customer = customerController.updateCustomer(customers.get(2),100L);
 
-        //Asset
+        //Assert
         assertNotNull(customer);
         assertEquals(2, customer.getId());
     }
 
     @Test
     void deleteCustomerById() {
-        //Asset
+        //Arrange
         Mockito.doNothing().when(customerRepository).deleteById(any(Long.class));
     }
 }
