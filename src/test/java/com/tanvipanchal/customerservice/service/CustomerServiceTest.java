@@ -1,5 +1,6 @@
 package com.tanvipanchal.customerservice.service;
 
+import com.tanvipanchal.customerservice.exception.CustomerBadRequestException;
 import com.tanvipanchal.customerservice.model.Customer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,6 +90,31 @@ class CustomerServiceTest {
         assertNotNull(customer);
         assertEquals(1, customer.size());
         assertEquals("Tina",customer.get(0).getFirstName());
+    }
+
+    @Test
+    void validateCustomerRequest_negative_customer_null()
+    {
+        CustomerService cs = new CustomerService();
+        try {
+            cs.validateCustomerRequest(null);
+        }catch(CustomerBadRequestException e){
+            assertEquals("Customer request is null, please provide customer request. null", e.getMessage());
+        }
+
+        Customer cust = new Customer();
+        try {
+            cs.validateCustomerRequest(cust);
+        }catch(CustomerBadRequestException e){
+            assertEquals("Customer id is required, please provide customer id in request. null", e.getMessage());
+        }
+
+       cust.setId(1L);
+        try {
+            cs.validateCustomerRequest(cust);
+        }catch(CustomerBadRequestException e){
+            assertEquals("Customer first name, last name, age, email, country and purchaseAmount are required, some fields are missing, please provide input. 1", e.getMessage());
+        }
     }
 
 }

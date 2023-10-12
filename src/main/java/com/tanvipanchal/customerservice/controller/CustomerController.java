@@ -27,6 +27,7 @@ public class CustomerController {
 
     @PostMapping("/v1/customers")
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer newCustomer){
+        customerService.validateCustomerRequest(newCustomer);
         return new ResponseEntity<>(repository.save(newCustomer), HttpStatus.CREATED);
     }
 
@@ -54,6 +55,7 @@ public class CustomerController {
 
     @PutMapping("/v1/customers/{id}")
     public Customer updateCustomer(@RequestBody Customer newCustomer, @PathVariable Long id) {
+        customerService.validateCustomerRequest(newCustomer);
         Optional<Customer> customer = repository.findById(id);
         if(customer.isPresent()){
             Customer oldCustomer = customer.get();

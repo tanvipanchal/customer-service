@@ -1,5 +1,6 @@
 package com.tanvipanchal.customerservice.service;
 
+import com.tanvipanchal.customerservice.exception.CustomerBadRequestException;
 import com.tanvipanchal.customerservice.model.Customer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,5 +54,21 @@ public class CustomerService {
         customerMap.put(subscriptionTierBronze, bronzeCustomers);
 
         return customerMap;
+    }
+
+    public void validateCustomerRequest(Customer customer){
+        if(customer == null){
+            throw new CustomerBadRequestException(null, "Customer request is null, please provide customer request.");
+        } else if(customer.getId() == null){
+            throw new CustomerBadRequestException(null, "Customer id is required, please provide customer id in request.");
+        }else if(customer.getFirstName() == null || customer.getFirstName().isEmpty() ||
+                customer.getLastName() == null || customer.getLastName().isEmpty() ||
+                customer.getCountry() == null ||customer.getCountry().isEmpty() ||
+                customer.getEmail() ==null || customer.getEmail().isEmpty() ||
+                (customer.getAge() == 0) ||
+                customer.getPurchaseAmount() == 0){
+            throw new CustomerBadRequestException(customer.getId(), "Customer first name, last name, age, email, country " +
+                    "and purchaseAmount are required, some fields are missing, please provide input.");
+        }
     }
 }
