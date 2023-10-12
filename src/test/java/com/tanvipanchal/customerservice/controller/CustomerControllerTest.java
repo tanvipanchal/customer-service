@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,10 +77,10 @@ class CustomerControllerTest {
         //Arrange
         Mockito.when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(0));
         //Act
-        Customer customer = customerController.createCustomer(customers.get(0));
+        ResponseEntity<Customer> customer = customerController.createCustomer(customers.get(0));
         //Asset
         assertNotNull(customer);
-        assertEquals("Tina", customer.getFirstName());
+        assertEquals("Tina", customer.getBody().getFirstName());
     }
 
     @Test

@@ -4,6 +4,8 @@ import com.tanvipanchal.customerservice.exception.CustomerNotFoundException;
 import com.tanvipanchal.customerservice.model.Customer;
 import com.tanvipanchal.customerservice.repository.CustomerRepository;
 import com.tanvipanchal.customerservice.service.CustomerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,8 +26,8 @@ public class CustomerController {
     }
 
     @PostMapping("/v1/customers")
-    public Customer createCustomer(@RequestBody Customer newCustomer){
-        return repository.save(newCustomer);
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer newCustomer){
+        return new ResponseEntity<>(repository.save(newCustomer), HttpStatus.CREATED);
     }
 
     @GetMapping("/v1/customers")
@@ -35,10 +37,10 @@ public class CustomerController {
 
     }
 
-//    @GetMapping("/v1/customers")
-//    public List<Customer> getAllCustomers(){
-//        return (List<Customer>) repository.findAll();
-//    }
+    @GetMapping("/v1/all-customers")
+    public List<Customer> getAllCustomers(){
+        return (List<Customer>) repository.findAll();
+    }
 
     @GetMapping("/v1/customers/{id}")
     public Customer getCustomerById(@PathVariable Long id){
